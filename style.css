@@ -1,0 +1,145 @@
+body, main, .row, article, p, .card, figure, button {
+    color: white;
+    background-color: black;
+}
+
+.Black, .Blue {
+    color: white;
+}
+
+h1, h2 {
+    font-family: 'Charm';
+    /* gras blanc grand */
+    font-size: 100px;
+    font-weight: bolder;
+    color: black;
+}
+
+figcaption {
+    width: 550px;
+}
+
+table, thead, th {
+    border: black solid 2px;
+    width: 200px;
+    height: 200px;
+}
+
+td, tr {
+    border: black solid 2px;
+    width: 200px;
+    height: 200px;
+}
+
+.nav-item {
+    background-color: #d78232;
+    color: black;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.nav-item:hover {
+    color: black;
+}
+
+.nav-link {
+    color: black;
+}
+
+.textCard {
+    color: black;
+}
+
+strong {
+    text-align: center;
+}
+
+.textCard:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* 286*180 */
+
+.nav-link:hover {
+    color: white;
+}
+
+.jumbotron {
+    text-align: center;
+    margin-bottom: 0;
+    border-radius: 0;
+    background: rgb(215, 130, 50);
+    background: linear-gradient(90deg, rgba(215, 130, 50, 1) 17%, rgba(176, 109, 161, 1) 46%, rgba(144, 91, 252, 1) 80%);
+}
+
+#textELement {
+    border: solid 1px black;
+    width: 50%;
+    margin-top: 50px;
+}
+
+img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.square {
+    padding: 100px;
+}
+
+.squares {
+    padding: 20px;
+}
+
+.squaresDelete {
+    border-bottom: solid steelblue 2px;
+    padding: 13px;
+}
+
+.squaresDelete:hover {
+    border: black solid 1px;
+    width: 100%;
+}
+
+.command_text {
+    border: dashed 5px #905bfb;
+    margin: 100px;
+    padding: 40px;
+}
+
+section {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input:invalid:required {
+    border: red solid 1px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.delete {
+    color: red;
+}
+
+.delete:hover {
+    color: red;
+}
+
+/* button {
+    padding: 20px;
+    margin-left: 20px;
+} */
+
+button:focus {
+    outline: blanchedalmond;
+}
+
+.price {
+    font-size: 2rem;
+}
