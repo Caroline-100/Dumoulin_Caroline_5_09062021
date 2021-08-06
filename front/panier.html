@@ -10,6 +10,10 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/877c0ba17d.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Basket</title>
   </head>
   <body>
@@ -23,6 +27,21 @@
         <h1>Onorico</h1>
       </div>
     </nav>
+    <p class="choice_user"> Your choices</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">NAME</th>
+          <th scope="col">COLORS PRODUCTS</th>
+          <th scope="col">PRICE PRODUCTS</th>
+          <!-- <th scope="col">TOTAL</th> -->
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p scope="row" id="total"></p>
+
     <form id="form">
       <div class="form-group">
         <label for="lastName"> LastName </label>
@@ -55,11 +74,11 @@
         <input
           id="address"
           type="text"
-          pattern="[0-9a-zA-Z-]"
           placeholder="4 rue Saint Paul 40555 Montrilliers"
           class="form-control"
           required
         />
+        <!-- pattern="[0-9a-zA-Z]" -->
       </div>
 
       <div class="form-group">
@@ -86,35 +105,11 @@
           required
         />
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <p class="choice_user"> Your choices</p>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">DELETE</th>
-          <th scope="col">ID</th>
-          <th scope="col">NAME</th>
-          <th scope="col">COLORS PRODUCTS</th>
-          <th scope="col">PRICE PRODUCTS</th>
-          <th scope="col">TOTAL</th>
-        </tr>
-      </thead>
-      <tbody>
-        <th scope="row" id="counter"></th>
-
-        <td scope="row" class="id"></td>
-        <td scope="row" class="name"></td>
-        <td scope="row" class="co"></td>
-
-        <td scope="row" class="prices"></td>
-
-        <td scope="row" id="total"></td>
-      </tbody>
-    </table>
     <button id="command" class="btn btn-primary">
       <a href="./command.html" id="command">Command</a>
     </button>
+
     <footer class="text-center text-lg-start bg-light text-muted">
       <section
         class="

@@ -1,13 +1,6 @@
 "use strict";
-// si le mot n est pas plus grand ou egale a 2 le champs est rouge,
-// si il est correct le champ est vert
 
-function displayArticleTable(table, object) {
-  for (let element in object) {
-    table.innerHTML += ` <p class="squaresDelete" >${object[element]}</p>`;
-  }
-}
-// count le nombre d espace
+// count number of spaces
 function countEspace(word, error) {
   for (let letter of word) {
     if (letter == " ") {
@@ -15,7 +8,8 @@ function countEspace(word, error) {
     }
   }
 }
-// si dans le nom a un chiffre il y a une erreur
+
+// if name content number return error
 function validateNotNumber(word, error, input) {
   if (!isNaN(word)) {
     console.error("nb error");
@@ -27,7 +21,7 @@ function validateNotNumber(word, error, input) {
     }
   }
 }
-//appel de l api avec de faire d autre action sur la page mise en place d une promesse
+// create an object objectTable
 let objectTable = {
   stringColor: [],
   stringId: [],
@@ -37,13 +31,19 @@ let objectTable = {
   counter: 0,
   resultCounter: [],
 };
+
 fetch(`http://localhost:3000/api/teddies/`)
-  // attente de la reponse
   .then((response) => {
+    // condition if not ok return an error otherwise return the response, it takes
+    // as input and parsing it to produce an object Javascript
+    if (!response.ok) {
+      throw new Error(`Fetch failed with status ${response.status}`);
+    }
     return response.json();
   })
-  // recuperer les valeurs de mon local storage pour les afficher dans un tableau cree dans la page html
+
   .then((teddie) => {
+    // get values on localStorage for display in the table
     let getColorID = localStorage.getItem("color");
     let arrayColorID = JSON.parse(getColorID);
 
@@ -55,6 +55,8 @@ fetch(`http://localhost:3000/api/teddies/`)
         ".choice_user"
       ).innerHTML = ` <p>  Vous panier est vide</p>`;
     } else {
+      const number = objectTable.resultCounter;
+      console.log(number);
       for (let IdColorsElement of arrayColorID) {
         // j initiale le nom de la couleur dans un paragraphe que j ajoute dans une colonne de mon tableau
         objectTable.stringColor.push(IdColorsElement[0]);
@@ -62,24 +64,45 @@ fetch(`http://localhost:3000/api/teddies/`)
         objectTable.stringId.push(IdColorsElement[1]);
         // j itere sur mes ours
         for (let ted of teddie) {
-          /*dans le IdColorsElement[1], il y a la l id de l ours choisi par l user et stocke dans le localStorage 
+          /*dans le IdColorsElement[1], il y a la
+           l id de l ours choisi par l user et stocke dans le localStorage 
           si cette valeur est identique a l un des id des teddie present dans l api teddie, alors j affiche son prix et en euro
           je fais la somme de tout ces teddies avec leurs prix correspondant */
+          // console.log(typeof objectTable.resultCounter);
+          console.log(IdColorsElement);
           if (IdColorsElement[1] === ted._id) {
-            //  count number of articles
             objectTable.counter += 1;
-            // teddies's price
+            objectTable.resultCounter.push(`${objectTable.counter}`);
+            //  count number of articles
+
+            // // teddies's price
             objectTable.price.push(ted.price / 100);
-            //add name in objectTable
+            // //add name in objectTable
             objectTable.stringName.push(ted.name);
-            // sum all articles
+            // // sum all articles
             objectTable.sum += ted.price / 100;
-            // resultat de chaque compte et l ajout dans une balise paragraphe
-            // pour l ajouter dans tableau
-            objectTable.resultCounter.push(`   ${objectTable.counter}`);
+            console.log(objectTable.sum);
           }
         }
       }
+      let teddiesLinesTable = "";
+      console.log("sum", objectTable.sum);
+      // <td style="color:white">${objectTable.stringId[parseInt(res - 1)]}</td>
+      for (let res of objectTable.resultCounter) {
+        teddiesLinesTable += `<tr class="colArticle">
+        <td style="color:white">${res}</td>
+        <td style="color:white">${
+          objectTable.stringName[parseInt(res - 1)]
+        }</td>
+        <td style="color:white">${
+          objectTable.stringColor[parseInt(res - 1)]
+        }</td>
+        <td class="Price" style="color:white">${
+          objectTable.price[parseInt(res - 1)]
+        }</td>
+        </tr>`;
+      }
+      document.querySelector("tbody").innerHTML = teddiesLinesTable;
     }
     // setting up the table
     if (objectTable.sum === 0) {
@@ -87,45 +110,25 @@ fetch(`http://localhost:3000/api/teddies/`)
         ".choice_user"
       ).innerHTML = ` <p class="messageCommand">  No commands</p>`;
     }
-
-    let thcounter = document.getElementById("counter");
-
-    let tdColors = document.querySelector(".co");
-    let tdName = document.querySelector(".name");
-    let tdPrice = document.querySelector(".prices");
+    const articleLine = document.querySelector("tbody");
     let tdTotal = document.querySelector("#total");
-    let tdId = document.querySelector(".id");
 
-    // add values in column in the table
-    displayArticleTable(thcounter, objectTable.resultCounter);
-    displayArticleTable(tdName, objectTable.stringName);
-    displayArticleTable(tdColors, objectTable.stringColor);
-    displayArticleTable(tdId, objectTable.stringId);
-    displayArticleTable(tdPrice, objectTable.price);
-    tdTotal.innerHTML += `<p>${objectTable.sum}  €<\p>`;
-
-    thcounter.addEventListener("click", (event) => {
-      let currentValueSelect = event.target.innerHTML;
-      event.target.parentNode.removeChild(event.target);
-
-      let currentValueSelectColor = tdColors.children[currentValueSelect - 1];
-      let currentValueSelectId = tdId.children[currentValueSelect - 1];
-      let currentValueSelectprice = tdPrice.children[currentValueSelect - 1];
-      let currentValueSelectname = tdName.children[currentValueSelect - 1];
-
-      currentValueSelectname.style.display = "none";
-      currentValueSelectprice.style.display = "none";
-      currentValueSelectId.style.display = "none";
-      currentValueSelectColor.style.display = "none";
+    tdTotal.innerHTML = objectTable.sum + " €";
+    articleLine.addEventListener("click", (event) => {
+      console.log(document.querySelector("#Price"));
+      let currentValueSelect = event.target.value;
+      console.log(articleLine.childNodes[parseInt(currentValueSelect - 1)]);
+      // articleLine.childNodes[parseInt(currentValueSelect - 1)].style.display =
+      //   "none";
+      console.log(currentValueSelect);
 
       let arraytoDelete = JSON.parse(localStorage.getItem("color"));
 
       let newarray = arraytoDelete.splice(1);
 
-      localStorage.setItem("color", JSON.stringify(newarray));
+      // objectTable.sum -= parseInt(currentValueSelectprice.innerHTML);
 
-      objectTable.sum -= parseInt(currentValueSelectprice.innerHTML);
-      tdTotal.innerHTML = objectTable.sum + " €";
+      localStorage.setItem("color", JSON.stringify(newarray));
       if (objectTable.sum === 0) {
         localStorage.setItem("color", "[]");
         localStorage.removeItem("number");
@@ -135,9 +138,35 @@ fetch(`http://localhost:3000/api/teddies/`)
         localStorage.removeItem("email");
         localStorage.removeItem("city");
       }
+      console.log(articleLine.hasChildNodes());
+      let children = articleLine.childNodes;
+
+      for (let i of children) {
+        console.log(i);
+      }
+
+      for (let price of arrayColorID) {
+        console.log(price[2]);
+        tdTotal.innerHTML = `<p style="color:red ;float=right">€${(objectTable.sum -=
+          price[2] / 100)}</p>`;
+      }
+      if (arrayColorID[0][1] === objectTable.stringId[0]) {
+        console.log(objectTable.price[0]);
+      }
+      console.log(arrayColorID[0][1]);
+      console.log(objectTable.stringId[0]);
     });
+    console.log(objectTable.sum);
+
+    // objectTable.sum -= objectTable.price;
+    // tdTotal.innerHTML = `ffd${(objectTable.sum -= objectTable.price)}`;
+
+    // tdTotal.innerHTML = objectTable.sum - objectTable.price;
 
     localStorage.setItem("total", objectTable.sum);
+    if (objectTable.sum === 0) {
+      localStorage.removeItem("number");
+    }
   })
   //delete element localStorage
   .then((teddie) => {
@@ -171,7 +200,6 @@ fetch(`http://localhost:3000/api/teddies/`)
     });
 
     inputAddress.addEventListener("input", (event) => {
-      testAddress(event.target.value, pErrorAddress, inputAddress);
       let valueInput = `${event.target.value}`;
       localStorage.setItem("address", valueInput);
     });
@@ -184,8 +212,6 @@ fetch(`http://localhost:3000/api/teddies/`)
     });
     inputEmail.addEventListener("input", (event) => {
       countEspace(event.target.value, pErrorMail);
-
-      validEmail(event.target.value, pErrorMail, inputEmail);
       let valueInput = `${event.target.value}`;
       localStorage.setItem("email", valueInput);
     });

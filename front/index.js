@@ -2,17 +2,12 @@
 // fetch all teddies
 fetch("http://localhost:3000/api/teddies")
   .then((response) => {
-    //  condition pour check si la reponse a l appel de l api est OK
-    //   utilisation de promesse pour verifier de maniere asynchrone
-    //   la chargement des donnes de l api et si le chargement est bon
-    //   faire les les autres action.
-    //   et si il y a un problème "catch" stoppera le programme à cet endroit
-    //   et log l erreur presente
-
+    // call API.
     console.log("response", response);
+    // condition if not ok return an error otherwise return the response, it takes
+    // as input and parsing it to produce an object Javascript
     if (!response.ok) {
       console.error(response);
-      // log l erreur avec message + quel type d erreur par le status
       throw new Error(`Fetch failed with status ${response.status}`);
     }
     return response.json();
@@ -20,13 +15,12 @@ fetch("http://localhost:3000/api/teddies")
 
   .then((teddies) => {
     // querySelector return the first Element within the document that matches
-    // the specified selector (class,id,element html...), ".row"dans homepage*/
+    // the specified selector (class,id,element html...), ".row" in homepage*/
     let elementSection = document.querySelector(".row");
-    // get element html by id
+    // return an Element by properties id
     let elementTitle = document.getElementById("title");
-    // the  syntax in the console.log,  log id' s html
 
-    // with innerText i modifie the text of html title element
+    // with innerText i modifie the title of element
     elementTitle.innerText = `Teddies`;
 
     // teddiesCardsHtml is a string empty
@@ -36,10 +30,10 @@ fetch("http://localhost:3000/api/teddies")
     for (let teddie of teddies) {
       // i create a new instance url (object)
       let urlInstance = new URL("http://127.0.0.1:5501/front/product.html");
-      /* j ajoute a l instance de l url un id venant de l api teddies
-      a l aide searchParams me permet d utiliser et de construire l url querystring , set me permet d ajouter une query string */
+      // i add url select by user  in url
       urlInstance.searchParams.set("id", teddie._id);
-      // apres les changement sur le fichiers json. [#hexacolor, namecolor] je devais iterer pour recuper le namecolor.
+      // after the changement in file json [#hexacolor, namecolor] i need to iterate for
+      // join the colors hexadecimal or name color
       let tedColor = [];
       for (let ted of teddie.colors) {
         tedColor.push(ted[0]);

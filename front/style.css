@@ -32,14 +32,14 @@ figcaption {
 
 table, thead, th {
     border: black solid 2px;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
 }
 
 td, tr {
     border: black solid 2px;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
 }
 
 .nav-item {
@@ -176,4 +176,20 @@ form {
 
 .messageCommand {
     margin-right: 2rem;
+}
+
+#counter::before {
+    content: '\f410';
+    font-family: 'Font Awesome 5 Free';
+}
+
+.row.no-gutters {
+    border-bottom: solid 1px aliceblue;
+    padding: 2em;
+}
+
+#total {
+    text-align: right;
+    width: 100%;
+    padding: 1rem;
 }

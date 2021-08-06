@@ -34,9 +34,11 @@ fetch(`http://localhost:3000/api/teddies/${teddyId}`)
     for (let color of teddies.colors) {
       // creation des bouton
       buttonTeddiesColor += `
+      <a href="./panier.html">
         <button class= "${color[0]}" style=
         "background-color: ${color[1]};"
-        >${color[0]}</button>`;
+        >${color[0]}</button>
+        </a>`;
     }
 
     // mise en place des boutons dans un element html present sur la page html
@@ -76,7 +78,7 @@ fetch(`http://localhost:3000/api/teddies/${teddyId}`)
 
         // arrayStorecolors est l ancienne valeurs si la valeur est null alors un array est ajouter dans cette array j ajoute la
         // nouvelle valeur le nouveau clic et j ajoute l idee
-        arrayStorecolors.push([currentItem, `${teddyId}`]);
+        arrayStorecolors.push([currentItem, `${teddyId}`, teddies.price]);
         // dans le local storage j initialise au tableau qui detiend les ancienne valeur et  la nouvelle
         localStorage.setItem("color", JSON.stringify(arrayStorecolors));
         localStorage.setItem("number", arrayStorecolors.length);
