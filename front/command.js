@@ -11,7 +11,7 @@ fetch("http://localhost:3000/api/teddies/order", {
 
     numberCommand = document.querySelector(".command");
     numberCommand.innerHTML = `    <p>
-    Bonjour ${json.contact.firstName}  
+    Hello ${json.contact.firstName}  
     ${json.contact.lastName} 
     voici votre numerode commande ${json.orderId} 
     le prix total est de ${localStorage.getItem("total")} € 

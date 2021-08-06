@@ -14,14 +14,10 @@ fetch("http://localhost:3000/api/teddies")
   })
 
   .then((teddies) => {
-    // querySelector return the first Element within the document that matches
-    // the specified selector (class,id,element html...), ".row" in homepage*/
+    // querySelector return the first Element within the document whose matches
+    // the specified selector (class,id,element html...), ".row" in homepage
     let elementSection = document.querySelector(".row");
     // return an Element by properties id
-    let elementTitle = document.getElementById("title");
-
-    // with innerText i modifie the title of element
-    elementTitle.innerText = `Teddies`;
 
     // teddiesCardsHtml is a string empty
     let teddiesCardsHtml = "";
@@ -50,12 +46,12 @@ fetch("http://localhost:3000/api/teddies")
           <img src="${teddie.imageUrl}" class="card-img" />
         </article>
         <div class="col-md-8">
-          <div class="card-body">
+          <div class="cards">
             <h5 class="card-title">Name : ${teddie.name}</h5>
-            <p class="card-text">cost :${teddie.price / 100} €</p>
-            <p class="card-text">Choose your color : ${tedColor}</p>
+            <p class="card-text">Cost : ${teddie.price / 100} €</p>
+            <p class="card-text">Choose your color : ${tedColor} </p>
             <p class="card-text">Description : ${teddie.description}</p>
-            <p class="card-text">id :${teddie._id}</p>
+            <p class="card-text">Product Id ${teddie._id}</p>
           </div>
         </div>
       </div>

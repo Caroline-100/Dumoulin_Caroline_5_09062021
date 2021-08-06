@@ -115,12 +115,12 @@ fetch(`http://localhost:3000/api/teddies/`)
 
     tdTotal.innerHTML = objectTable.sum + " €";
     articleLine.addEventListener("click", (event) => {
-      console.log(document.querySelector("#Price"));
       let currentValueSelect = event.target.value;
-      console.log(articleLine.childNodes[parseInt(currentValueSelect - 1)]);
       // articleLine.childNodes[parseInt(currentValueSelect - 1)].style.display =
       //   "none";
+
       console.log(currentValueSelect);
+      console.log(articleLine.childNodes[parseInt(currentValueSelect - 1)]);
 
       let arraytoDelete = JSON.parse(localStorage.getItem("color"));
 
@@ -138,23 +138,7 @@ fetch(`http://localhost:3000/api/teddies/`)
         localStorage.removeItem("email");
         localStorage.removeItem("city");
       }
-      console.log(articleLine.hasChildNodes());
-      let children = articleLine.childNodes;
-
-      for (let i of children) {
-        console.log(i);
-      }
-
-      for (let price of arrayColorID) {
-        console.log(price[2]);
-        tdTotal.innerHTML = `<p style="color:red ;float=right">€${(objectTable.sum -=
-          price[2] / 100)}</p>`;
-      }
-      if (arrayColorID[0][1] === objectTable.stringId[0]) {
-        console.log(objectTable.price[0]);
-      }
-      console.log(arrayColorID[0][1]);
-      console.log(objectTable.stringId[0]);
+      location.reload();
     });
     console.log(objectTable.sum);
 
