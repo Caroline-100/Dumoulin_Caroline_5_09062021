@@ -8,18 +8,14 @@ fetch("http://localhost:3000/api/teddies/order", {
   .then((response) => response.json())
   .then((json) => {
     console.log(json);
-
-    numberCommand = document.querySelector(".command");
-    numberCommand.innerHTML = `    <p>
+    numberOrder = document.querySelector(".order");
+    numberOrder.innerHTML = `    <p>
     Hello ${json.contact.firstName}  
     ${json.contact.lastName} 
-    voici votre numerode commande ${json.orderId} 
-    le prix total est de ${localStorage.getItem("total")} € 
-    </p> <p> Vous recevrais votre commande sous peu verifier vos mails pour suivre la commande `;
+    this is your id order ${json.orderId} 
+    the price is ${localStorage.getItem("total")} € 
+    </p> <p> You will receive your order shortly check your emails to track the order `;
   })
   .catch((error) => {
     console.error("Error:", error);
   });
-
-// Voici votre  numero de commande :</p>
-// <p>${}, le montant est de ${} €</p>;

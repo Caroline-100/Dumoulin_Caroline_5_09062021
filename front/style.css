@@ -1,4 +1,4 @@
-body, main, .row, article, .card, figure, button, .squaresDelete, #total {
+body, main, .row, article, .card, figure, .squaresDelete, #total {
     color: white;
     background-color: black;
 }
@@ -6,6 +6,7 @@ body, main, .row, article, .card, figure, button, .squaresDelete, #total {
 footer {
     background-color: gray;
     text-align: center;
+    margin-top: 2em;
     color: black;
 }
 
@@ -15,15 +16,83 @@ footer {
 }
 
 .card-text {
-    padding: 0.6em;
+    /* padding: 0.6em; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 3rem;
 }
 
-.Black, .Blue {
+/* .Brown, .Blue, .Pink {
+    inline-size: none;
+    padding: 0.5em;
+    width: 100px;
+    border-radius: 1em;
+} */
+
+/* .Dark-brown, .Pale-Brown {
+    color: white;
+    border: white solid 1px;
+    padding: 0.5em;
+    width: 100px;
+    inline-size: auto;
+    border-radius: 1em;
+} */
+
+/* .Dark-brown, .Pale-Brown, .Black, .Tan, .White, .Beige, .Chocolate {
+    inline-size: auto;
+    border-radius: 1em;
+    width: 100px;
+    padding: 0.5em;
+} */
+
+/* .Black {
+    color: white; */
+
+/* inline-size: auto; */
+
+/* border-radius: 1em; */
+
+/* width: 100px; */
+
+/* padding: 0.5em; */
+
+/* } */
+
+/* .Tan, .White, .Beige, .Chocolate {
+    color: black;
+    /* padding: 0.5em; */
+
+/* inline-size: auto; */
+
+/* border-radius: 1em; */
+
+/* width: 100px; 
+} */
+
+/* inline-size: auto; no => Beige tan chocolate Black white Pink blue Brown */
+
+/* ok .Pale-Brown .Dark-brown */
+
+.Dark-brown, .Brown, .Black {
     color: white;
 }
 
-.Tan, .White, .Pale-Brown, .Pink, .Beige {
-    color: black;
+.Dark-brown, .Pale-Brown {
+    inline-size: auto;
+    padding: 0.5em;
+    border-radius: 1em;
+}
+
+.Tan, .White, .Beige, .Chocolate, .Black, .Brown, .Blue, .Pink {
+    padding: 0.5em;
+    border-radius: 1em;
+    width: 100px;
+}
+
+.fw-light {
+    text-align: center;
+    padding: 1em;
 }
 
 @font-face {
@@ -53,8 +122,13 @@ figcaption {
 
 table, thead, th {
     border: black solid 2px;
+    font-size: 14px;
     width: 100px;
     height: 100px;
+}
+
+tr .resizeTd {
+    padding: 0.6rem;
 }
 
 td, tr {
@@ -107,7 +181,6 @@ strong {
 
 #textELement {
     border: solid 1px black;
-    width: 50%;
     margin-top: 50px;
 }
 
@@ -117,7 +190,9 @@ img {
 }
 
 .square {
-    padding: 100px;
+    /* width: 50%; */
+    display: flex;
+    /* justify-content: space-between; */
 }
 
 .squares {
@@ -134,10 +209,13 @@ img {
     width: 100%;
 }
 
-.command_text {
-    border: dashed 5px #905bfb;
-    margin: 100px;
+.order_text {
+    /* margin: 100px; */
     padding: 40px;
+}
+
+footer {
+    background-color: white;
 }
 
 section {
@@ -169,6 +247,11 @@ button:focus {
     outline: blanchedalmond;
 }
 
+button:hover {
+    box-shadow: white;
+    box-shadow: 5px 5px 5px white;
+}
+
 .price {
     font-size: 2rem;
 }
@@ -177,26 +260,36 @@ input::placeholder {
     color: rgb(117, 117, 117);
 }
 
-form {
-    max-width: 40%;
-    margin: auto;
+.form-group {
+    max-width: 50%;
+    margin: 0 auto;
 }
 
-.btn-primary, #command {
+@media (max-width: 600px) {
+    .form-group {
+        max-width: 70%;
+        margin: 0 auto;
+    }
+}
+
+.btn-primary {
+    margin: 2em auto;
+}
+
+.btn-primary, #order {
     color: #fff;
     background-color: indigo;
 }
 
-#command {
-    float: right;
-    margin: 1rem;
+#order {
+    display: block;
 }
 
 .table thead th {
-    color: antiquewhite;
+    color: rgb(255, 255, 255);
 }
 
-.messageCommand {
+.messageOrder {
     margin-right: 2rem;
 }
 

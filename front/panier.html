@@ -31,10 +31,10 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col"></th>
-          <th scope="col">NAME</th>
-          <th scope="col">COLORS PRODUCTS</th>
-          <th scope="col">PRICE PRODUCTS</th>
+          <th class="resizeTd" scope="col"></th>
+          <th class="resizeTd" scope="col">NAME</th>
+          <th class="resizeTd" scope="col">COLORS PRODUCTS</th>
+          <th class="resizeTd" scope="col">PRICE PRODUCTS</th>
           <!-- <th scope="col">TOTAL</th> -->
         </tr>
       </thead>
@@ -44,9 +44,10 @@
 
     <form id="form">
       <div class="form-group">
-        <label for="lastName"> LastName </label>
+        <label for="lastName" class="form-label"> LastName </label>
         <p id="errorlastName"></p>
         <input
+          class="form-control"
           type="text"
           id="lastName"
           placeholder="Durand"
@@ -57,7 +58,7 @@
       </div>
       <div class="form-group">
         <label for="firstName"> FirstName </label>
-        <p id="errorfirstName"></p>
+        <p id="errorFirstName"></p>
         <input
           id="firstName"
           type="text"
@@ -106,11 +107,11 @@
         />
       </div>
     </form>
-    <button id="command" class="btn btn-primary">
-      <a href="./command.html" id="command">Command</a>
+    <button id="order" class="btn btn-primary">
+      <a href="./command.html" id="order">Order</a>
     </button>
 
-    <footer class="text-center text-lg-start bg-light text-muted">
+    <footer>
       <section
         class="
           d-flex

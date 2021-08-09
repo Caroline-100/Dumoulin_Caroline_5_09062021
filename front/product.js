@@ -1,69 +1,66 @@
 "use strict";
-// urlInstance take url of document
+// i create a new instance url (object)
+// i set url of current document
 let urlInstance = new URL(document.URL);
 
-// teddyId take Id of l URL of document
+// teddyId, i take Id of l URL of current document
 const teddyId = urlInstance.searchParams.get("id");
 
-// elementTexte prend par l id la balise HTML p, corresdant a l'id textELement
+// textELement , i get element html by it id name
 const elementIMG = document.getElementById("textELement");
+// textDescription, i get element html by it class name
 const elementDescription = document.querySelector(".textDescription");
-const elementTexte = document.querySelector("figcaption");
 
-// elementTexte prend par la classe la balise HTML p, corresdant a la classe square
+// elementSquareColors, i get element html by it class name
 const elementSquareColors = document.querySelector(".square");
 
-// appel l api teddies avec le teddie choisi par l user l id dans la barre de recherche
+// i call API teddies with it idproduct in search barre
 fetch(`http://localhost:3000/api/teddies/${teddyId}`)
   .then((response) => {
     return response.json();
   })
   .then((teddies) => {
+    // change title by teddies name
     document.querySelector("h1").innerText = `${teddies.name}`;
-    // Dans l element html j ajoute un bloc html qui correspond au information du teddie a qui appartient l id
+    // In html Element i add a block of html image and text description
+    // i add an image, url of image, the price and the description are in api
     elementIMG.innerHTML = `
-    <img src="${teddies.imageUrl}"alt="..." width="600px height="300px">
+    <img src="${teddies.imageUrl}" class="img-fluid" alt="photo ours">
 <p class="price"><strong>${teddies.price / 100} €<strong></p>
 `;
     elementDescription.innerHTML = `
-    <p>${teddies.description}</p>`;
-    // j inialise des boutons de couleurs l'user pourra des a present choisir la couleur de son teddi
+    <p class="fw-light">${teddies.description}</p>`;
+    // I initialize colored buttons,  the user can choose the color of his teddie
     let buttonTeddiesColor = "";
-    /* j itere sur l'array de couleurs pour avoir les hexadecimal couleurs pour les background des bouttons
-    et le nom des couleurs pour le texte */
+    // I iterate over the array of colors to get the hexadecimal colors for the background of the buttons
+    // and the name of the colors for the text
     for (let color of teddies.colors) {
-      // creation des bouton
+      // creating buttons
       buttonTeddiesColor += `
       <a href="./panier.html">
         <button class= "${color[0]}" style=
-        "background-color: ${color[1]};"
+        "background-color: ${color[1]}; "
         >${color[0]}</button>
         </a>`;
     }
 
-    // mise en place des boutons dans un element html present sur la page html
+    // setting up the buttons in an html element present on the html page
     elementSquareColors.innerHTML = buttonTeddiesColor;
-    // dans le localStorage je recupere l ancienne valeur
+    // in the localStorage i retrieve the old value
     let valuelocalColor = localStorage.getItem("color");
-    // si la valeur est null alors j initialise une valeur un array vide pour accueillir l ensemble des valeurs,
-    // evite l erreur de vouloir recuperer la valeur null par defaut quand le localStorage est vide
+    // if the localstorage return null i add an empty array
     if (valuelocalColor === null) {
-      /*dans la cle "color" : j ajoute un array vide que je stringify pour que la valeur soit une string car le localStorage
-      n accepte que des strings */
       localStorage.setItem("color", JSON.stringify([]));
-      /* getItem me permet de recuperer la valeur que je viens d initialiser, valuelocalColor est la valeur presente avec la cle color
-      dans le localStorage */
+      // i retrieve the value in localStorage, the array empty
       valuelocalColor = localStorage.getItem("color");
     }
-    // convertis un objet json notation string en objet, dans le cas present un array
+    // in the localstorage the values are in format string, i change for get an array of colors
     let arrayStorecolors = JSON.parse(valuelocalColor);
-
-    //j itere sur l array des couleurs de l api qui retour des nombres
+    // i loop over the array of colors of API which returns the numbers of colors for each teddies
     for (let numbersColorsByTeddy in teddies.colors) {
-      /* pour chaque avec la couleur qui correspond a la couleur d un teddie 
-      je recupere ces elements */
+      console.log(numbersColorsByTeddy);
+      // i retrieve only the name of colors
       let buttonsColor = document.querySelector(
-        // dans cet array d array je ne recupere que les noms des couleurs
         `.${teddies.colors[numbersColorsByTeddy][0]}`
       );
 
@@ -71,21 +68,24 @@ fetch(`http://localhost:3000/api/teddies/${teddyId}`)
         "#number_element_basket"
       );
       elementArticleBasket.textContent = localStorage.getItem("number");
-      // je cree un event sur le bouton de couleurs, la cible va me le nom des classes de chacun de ces element
-      // qui correspond a la couleur du boutton
+      // i create an event on button of colors, when the buttons is clicked i add in the localstorage the current color and id product
       buttonsColor.addEventListener("click", (event) => {
+        // classname is the name of colors
         let currentItem = event.target.className;
-
-        // arrayStorecolors est l ancienne valeurs si la valeur est null alors un array est ajouter dans cette array j ajoute la
-        // nouvelle valeur le nouveau clic et j ajoute l idee
+        // i add old values with currentvalue in array empty
         arrayStorecolors.push([currentItem, `${teddyId}`, teddies.price]);
-        // dans le local storage j initialise au tableau qui detiend les ancienne valeur et  la nouvelle
+        // in the localStorage, i update the array whose content old value and currrent value
         localStorage.setItem("color", JSON.stringify(arrayStorecolors));
+
         localStorage.setItem("number", arrayStorecolors.length);
         let elementArticleBasket = document.querySelector(
           "#number_element_basket"
         );
+        // i display the current number of article in the basket
         elementArticleBasket.textContent = localStorage.getItem("number");
       });
     }
+  })
+  .catch((error) => {
+    console.error(error);
   });

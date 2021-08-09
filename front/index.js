@@ -17,7 +17,6 @@ fetch("http://localhost:3000/api/teddies")
     // querySelector return the first Element within the document whose matches
     // the specified selector (class,id,element html...), ".row" in homepage
     let elementSection = document.querySelector(".row");
-    // return an Element by properties id
 
     // teddiesCardsHtml is a string empty
     let teddiesCardsHtml = "";
@@ -26,24 +25,23 @@ fetch("http://localhost:3000/api/teddies")
     for (let teddie of teddies) {
       // i create a new instance url (object)
       let urlInstance = new URL("http://127.0.0.1:5501/front/product.html");
-      // i add url select by user  in url
+      // i add url a selected id by the user in the url
       urlInstance.searchParams.set("id", teddie._id);
-      // after the changement in file json [#hexacolor, namecolor] i need to iterate for
-      // join the colors hexadecimal or name color
+      // in the file Jason, I change the data color [#hexacolor, name, color]
       let tedColor = [];
+      // i loop over the teddies javascript object
       for (let ted of teddie.colors) {
         tedColor.push(ted[0]);
       }
-      // console.log(tedColor);
-      /* j'initialise la string vide avec des template string Dans cette variable,
-          Je cree un bloc html qui me permet d'avoir une carte sous forme de liste pour chacun de mes ours 
-          avec les informations que me fournis l objet teddies */
+      //  i create a card for each teddie of api
       teddiesCardsHtml += `
     <a href=${urlInstance.href} class="textCard">
       <div class="card mb-4">
       <div class="row no-gutters">
         <article class="col-md-4">
-          <img src="${teddie.imageUrl}" class="card-img" />
+          <img src="${
+            teddie.imageUrl
+          }" alt = "image bear Teddies" class="card-img" />
         </article>
         <div class="col-md-8">
           <div class="cards">
@@ -61,6 +59,7 @@ fetch("http://localhost:3000/api/teddies")
     }
     // i used html element for add bloc html above
     elementSection.innerHTML = teddiesCardsHtml;
+    // number is the number of article select by user stock in the basket
     let elementArticleBasket = document.querySelector("#number_element_basket");
     elementArticleBasket.textContent = localStorage.getItem("number");
   })
