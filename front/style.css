@@ -281,6 +281,10 @@ input::placeholder {
     background-color: indigo;
 }
 
+.linkOrder {
+    color: white;
+}
+
 #order {
     display: block;
 }

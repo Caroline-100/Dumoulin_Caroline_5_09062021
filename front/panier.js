@@ -23,6 +23,15 @@ let objectTable = {
   counter: 0,
   resultCounter: [],
 };
+// const article  = [
+// {
+//   plushName : ,
+//   plushId : ,
+//   plushColor: ,
+//   plushprice: ,
+
+// }
+// ]
 
 fetch(`http://localhost:3000/api/teddies/`)
   .then((response) => {
@@ -40,24 +49,27 @@ fetch(`http://localhost:3000/api/teddies/`)
     let arrayColorID = JSON.parse(getColorID);
     // if my basket is  empty a message is display
     if (arrayColorID === null) {
+      console.log(objectTable);
       document.querySelector(
         ".choice_user"
       ).innerHTML = ` <p>  Your basket is empty </p>`;
     } else {
-      const number = objectTable.resultCounter;
-      console.log(number);
+      // const number = objectTable.resultCounter;
+      // console.log(number);
+      const article = [];
       for (let IdColorsElement of arrayColorID) {
         // j initiale le nom de la couleur dans un paragraphe que j ajoute dans une colonne de mon tableau
         // i add color array in my obbjectTable
+        console.log(IdColorsElement);
         objectTable.stringColor.push(IdColorsElement[0]);
         // i add id array in my obbjectTable
         objectTable.stringId.push(IdColorsElement[1]);
         // i loop over the teddie
         for (let ted of teddie) {
           if (IdColorsElement[1] === ted._id) {
-            objectTable.counter += 1;
+            // objectTable.counter += 1;
             //  count number of articles, i add in objectTable
-            objectTable.resultCounter.push(`${objectTable.counter}`);
+            // objectTable.resultCounter.push(`${objectTable.counter}`);
             // teddies's price, i add in objectTable
             objectTable.price.push(ted.price / 100);
             //add name in objectTable, i add in objectTable
@@ -65,25 +77,33 @@ fetch(`http://localhost:3000/api/teddies/`)
             // sum all articles, i add in objectTable
             objectTable.sum += ted.price / 100;
             console.log(objectTable);
+
+            article.push({
+              plushName: ted.name,
+              plushId: IdColorsElement[1],
+              plushColor: IdColorsElement[0],
+              plushPrice: IdColorsElement[2],
+            });
           }
         }
+        console.log(article.length);
       }
       let teddiesLinesTable = "";
       console.log("sum", objectTable.sum);
-      for (let res of objectTable.resultCounter) {
+      const articleDetail = article.map((art) => {
+        console.log(art.plushName);
+
         teddiesLinesTable += `<tr class="colArticle">
-        <td class="resizeTd" style="color:white">${res} <i class="fas fa-trash-alt"></i></td>
-        <td class="resizeTd" style="color:white">${
-          objectTable.stringName[parseInt(res - 1)]
-        }</td>
-        <td class="resizeTd" style="color:white">${
-          objectTable.stringColor[parseInt(res - 1)]
-        }</td>
+        <td class="resizeTd" style="color:white"><i class="fas fa-trash-alt"></i></td>
+        <td class="resizeTd" style="color:white">
+        ${art.plushName}</td>
+        <td class="resizeTd" style="color:white">${art.plushColor}</td>
         <td class="resizeTd" class="Price" style="color:white">${
-          objectTable.price[parseInt(res - 1)]
+          art.plushPrice / 100
         }</td>
         </tr>`;
-      }
+      });
+
       document.querySelector("tbody").innerHTML = teddiesLinesTable;
     }
     // setting up the table
