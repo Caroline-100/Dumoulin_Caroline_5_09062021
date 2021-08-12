@@ -16,63 +16,22 @@ footer {
 }
 
 .card-text {
-    /* padding: 0.6em; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 3rem;
 }
 
-/* .Brown, .Blue, .Pink {
-    inline-size: none;
+.square a button {
+    display: flex;
+    justify-content: center;
     padding: 0.5em;
-    width: 100px;
     border-radius: 1em;
-} */
+}
 
-/* .Dark-brown, .Pale-Brown {
-    color: white;
-    border: white solid 1px;
-    padding: 0.5em;
-    width: 100px;
-    inline-size: auto;
-    border-radius: 1em;
-} */
-
-/* .Dark-brown, .Pale-Brown, .Black, .Tan, .White, .Beige, .Chocolate {
-    inline-size: auto;
-    border-radius: 1em;
-    width: 100px;
-    padding: 0.5em;
-} */
-
-/* .Black {
-    color: white; */
-
-/* inline-size: auto; */
-
-/* border-radius: 1em; */
-
-/* width: 100px; */
-
-/* padding: 0.5em; */
-
-/* } */
-
-/* .Tan, .White, .Beige, .Chocolate {
-    color: black;
-    /* padding: 0.5em; */
-
-/* inline-size: auto; */
-
-/* border-radius: 1em; */
-
-/* width: 100px; 
-} */
-
-/* inline-size: auto; no => Beige tan chocolate Black white Pink blue Brown */
-
-/* ok .Pale-Brown .Dark-brown */
+a:hover {
+    text-decoration: none;
+}
 
 .Dark-brown, .Brown, .Black {
     color: white;
@@ -80,13 +39,9 @@ footer {
 
 .Dark-brown, .Pale-Brown {
     inline-size: auto;
-    padding: 0.5em;
-    border-radius: 1em;
 }
 
 .Tan, .White, .Beige, .Chocolate, .Black, .Brown, .Blue, .Pink {
-    padding: 0.5em;
-    border-radius: 1em;
     width: 100px;
 }
 
@@ -179,7 +134,7 @@ strong {
     background: linear-gradient(90deg, rgba(215, 130, 50, 1) 17%, rgba(176, 109, 161, 1) 46%, rgba(144, 91, 252, 1) 80%);
 }
 
-#textELement {
+#imageAndPrice {
     border: solid 1px black;
     margin-top: 50px;
 }
@@ -187,12 +142,6 @@ strong {
 img {
     object-fit: cover;
     width: 100%;
-}
-
-.square {
-    /* width: 50%; */
-    display: flex;
-    /* justify-content: space-between; */
 }
 
 .squares {
@@ -281,7 +230,7 @@ input::placeholder {
     background-color: indigo;
 }
 
-.linkOrder {
+.c {
     color: white;
 }
 

@@ -103,7 +103,6 @@ fetch(`http://localhost:3000/api/teddies/`)
         }</td>
         </tr>`;
       });
-
       document.querySelector("tbody").innerHTML = teddiesLinesTable;
     }
     // setting up the table
