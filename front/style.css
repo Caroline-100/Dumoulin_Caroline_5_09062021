@@ -197,7 +197,6 @@ button:focus {
 }
 
 button:hover {
-    box-shadow: white;
     box-shadow: 5px 5px 5px white;
 }
 

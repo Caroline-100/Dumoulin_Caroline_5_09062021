@@ -1,5 +1,7 @@
 let body = localStorage.getItem("contact");
 body = JSON.parse(body);
+// j appelle l api order
+// et j envoie les donnees de mon localstorage
 fetch("http://localhost:3000/api/teddies/order", {
   method: "POST",
   body: JSON.stringify(body),

@@ -14,8 +14,7 @@ fetch("http://localhost:3000/api/teddies")
   })
 
   .then((teddies) => {
-    // querySelector return the first Element within the document whose matches
-    // the specified selector (class,id,element html...), ".row" in homepage
+    // "row" is a block div for show each articles
     let elementSection = document.querySelector(".row");
 
     // teddiesCardsHtml is a string empty
@@ -23,11 +22,11 @@ fetch("http://localhost:3000/api/teddies")
 
     //i loop over each teddie
     for (let teddie of teddies) {
-      // i create a new instance url (object)
+      // i create a new instance url (object) from the product page url
       let urlInstance = new URL("http://127.0.0.1:5501/front/product.html");
       // i add url a selected id by the user in the url
       urlInstance.searchParams.set("id", teddie._id);
-      // in the file Jason, I change the data color [#hexacolor, name, color]
+      // in the file Jason, I change the data color [hexadecimal color, name color]
       let tedColor = [];
       // i loop over the teddies javascript object
       for (let ted of teddie.colors) {
@@ -57,9 +56,9 @@ fetch("http://localhost:3000/api/teddies")
   </a> 
       `;
     }
-    // i used html element for add bloc html above
+    // i show the articles of plush on the homepage
     elementSection.innerHTML = teddiesCardsHtml;
-    // number is the number of article select by user stock in the basket
+    // show the number articles choose by the user
     let elementArticleBasket = document.querySelector("#number_element_basket");
     elementArticleBasket.textContent = localStorage.getItem("number");
   })

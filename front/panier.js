@@ -23,15 +23,6 @@ let objectTable = {
   counter: 0,
   resultCounter: [],
 };
-// const article  = [
-// {
-//   plushName : ,
-//   plushId : ,
-//   plushColor: ,
-//   plushprice: ,
-
-// }
-// ]
 
 fetch(`http://localhost:3000/api/teddies/`)
   .then((response) => {
@@ -45,40 +36,36 @@ fetch(`http://localhost:3000/api/teddies/`)
 
   .then((teddie) => {
     // get values on localStorage for display in the table
-    let getColorID = localStorage.getItem("color");
+    let getColorID = localStorage.getItem("color"); // [["Black","5be9c8541c9d440000665243",2900]]
+
     let arrayColorID = JSON.parse(getColorID);
+
     // if my basket is  empty a message is display
     if (arrayColorID === null) {
-      console.log(objectTable);
       document.querySelector(
         ".choice_user"
       ).innerHTML = ` <p>  Your basket is empty </p>`;
     } else {
-      // const number = objectTable.resultCounter;
-      // console.log(number);
       const article = [];
       for (let IdColorsElement of arrayColorID) {
         // j initiale le nom de la couleur dans un paragraphe que j ajoute dans une colonne de mon tableau
         // i add color array in my obbjectTable
-        console.log(IdColorsElement);
+
         objectTable.stringColor.push(IdColorsElement[0]);
         // i add id array in my obbjectTable
         objectTable.stringId.push(IdColorsElement[1]);
         // i loop over the teddie
         for (let ted of teddie) {
           if (IdColorsElement[1] === ted._id) {
-            // objectTable.counter += 1;
+            objectTable.counter += 1;
             //  count number of articles, i add in objectTable
-            // objectTable.resultCounter.push(`${objectTable.counter}`);
-            // teddies's price, i add in objectTable
-            objectTable.price.push(ted.price / 100);
-            //add name in objectTable, i add in objectTable
-            objectTable.stringName.push(ted.name);
+            objectTable.resultCounter.push(`${objectTable.counter}`);
+            // console.log(objectTable.resultCounter);
+            console.log(objectTable.counter);
             // sum all articles, i add in objectTable
             objectTable.sum += ted.price / 100;
-            console.log(objectTable);
-
             article.push({
+              plushNumber: objectTable.counter,
               plushName: ted.name,
               plushId: IdColorsElement[1],
               plushColor: IdColorsElement[0],
@@ -86,15 +73,15 @@ fetch(`http://localhost:3000/api/teddies/`)
             });
           }
         }
-        console.log(article.length);
       }
-      let teddiesLinesTable = "";
-      console.log("sum", objectTable.sum);
-      const articleDetail = article.map((art) => {
-        console.log(art.plushName);
 
+      let teddiesLinesTable = "";
+
+      const articleDetail = article.map((art) => {
         teddiesLinesTable += `<tr class="colArticle">
-        <td class="resizeTd" style="color:white"><i class="fas fa-trash-alt"></i></td>
+        <td class="resizeTd deleteProduct" style="color:white" data-id="${
+          art.plushNumber
+        }">${art.plushNumber}<i class="fas fa-trash-alt"></i></td>
         <td class="resizeTd" style="color:white">
         ${art.plushName}</td>
         <td class="resizeTd" style="color:white">${art.plushColor}</td>
@@ -113,13 +100,16 @@ fetch(`http://localhost:3000/api/teddies/`)
     }
 
     const tableArticle = document.querySelector("tbody");
+    console.log(tableArticle.childNodes);
+    console.log(tableArticle.children);
     let tdTotal = document.querySelector("#total");
     tdTotal.innerHTML = objectTable.sum + " €";
 
     tableArticle.addEventListener("click", () => {
       let arraytoDelete = JSON.parse(localStorage.getItem("color"));
+      console.log("array to delete", arraytoDelete);
       let newarray = arraytoDelete.splice(1);
-
+      console.log("new array", newarray);
       localStorage.setItem("color", JSON.stringify(newarray));
       if (objectTable.sum === 0) {
         localStorage.setItem("color", "[]");
@@ -132,7 +122,6 @@ fetch(`http://localhost:3000/api/teddies/`)
       }
       location.reload();
     });
-    console.log(objectTable.sum);
 
     localStorage.setItem("total", objectTable.sum);
     if (objectTable.sum === 0) {
@@ -180,33 +169,33 @@ fetch(`http://localhost:3000/api/teddies/`)
       localStorage.setItem("email", valueInput);
     });
 
-    let currentData = {
-      contact: {
-        firstName: localStorage.getItem("firstName"),
-        lastName: localStorage.getItem("lastName"),
-        address: localStorage.getItem("address"),
-        city: localStorage.getItem("city"),
-        email: localStorage.getItem("email"),
-      },
-      products: objectTable.stringId,
-    };
-    document.querySelector("#order").addEventListener("click", () => {
-      localStorage.removeItem("color");
-      localStorage.removeItem("number");
-      localStorage.removeItem("orderId");
-      localStorage.removeItem("products");
-    });
-    localStorage.setItem("contact", JSON.stringify(currentData));
-    fetch("http://localhost:3000/api/teddies/order", {
-      method: "POST",
-      body: JSON.stringify(currentData),
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        localStorage.setItem("orderId", json.orderId);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // let currentData = {
+    //   contact: {
+    //     firstName: localStorage.getItem("firstName"),
+    //     lastName: localStorage.getItem("lastName"),
+    //     address: localStorage.getItem("address"),
+    //     city: localStorage.getItem("city"),
+    //     email: localStorage.getItem("email"),
+    //   },
+    //   products: objectTable.stringId,
+    // };
+    // document.querySelector("#order").addEventListener("click", () => {
+    //   localStorage.removeItem("color");
+    //   localStorage.removeItem("number");
+    //   localStorage.removeItem("orderId");
+    //   localStorage.removeItem("products");
+    // });
+    // localStorage.setItem("contact", JSON.stringify(currentData));
+    //   fetch("http://localhost:3000/api/teddies/order", {
+    //     method: "POST",
+    //     body: JSON.stringify(currentData),
+    //     headers: { "Content-Type": "application/json;charset=utf-8" },
+    //   })
+    //     .then((response) => response.json())
+    //     .then((json) => {
+    //       localStorage.setItem("orderId", json.orderId);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
   });
+// });
