@@ -1,17 +1,25 @@
 // "use strict";
+// function for create buttons colors
+function getColorbuttonsColor(colors) {
+  let htmlButton = "";
+  for (let color of colors) {
+    const colorNameBtn = color[0];
+    const colorCodeBtn = color[1];
+    htmlButton += `<a href="javascript:void(0);"><button class= "${colorNameBtn}" 
+    style="background-color: ${colorCodeBtn}; ">${colorNameBtn}</button></a>`;
+  }
+  return htmlButton;
+}
 // i create a new instance from the current url
 let urlInstance = new URL(document.URL);
-
 // current teddie id
 const teddyId = urlInstance.searchParams.get("id");
-
 // i take the element html figure for show the Image and the Price of  the plush
 const elmtImagePricePlush = document.getElementById("imageAndPrice");
 // i take the element html article for show the description of the plush
 const elementDescription = document.querySelector(".textDescription");
 // i take the element html div for group all squares of colors
 const elementSquareColors = document.querySelector(".square");
-let buttonsColor = "";
 // i call API teddies with it idproduct in search barre
 fetch(`http://localhost:3000/api/teddies/${teddyId}`)
   .then((response) => {
@@ -28,21 +36,8 @@ fetch(`http://localhost:3000/api/teddies/${teddyId}`)
 `;
     elementDescription.innerHTML = `
     <p class="fw-light">${teddies.description}</p>`;
+
     // I initialize colored buttons,  the user can choose the color of his teddie
-
-    function getColorbuttonsColor(colors) {
-      let htmlButton = "";
-      for (let color of colors) {
-        const colorNameBtn = color[0];
-        const colorCodeBtn = color[1];
-        htmlButton += `<a href="javascript:void(0);"><button class= "${colorNameBtn}" 
-        // style="background-color: ${colorCodeBtn}; ">${colorNameBtn}</button></a>`;
-        // htmlButton += `<a href="./panier.html"><button class= "${colorNameBtn}"
-        // style="background-color: ${colorCodeBtn}; ">${colorNameBtn}</button></a>`;
-      }
-      return htmlButton;
-    }
-
     let buttonsColorPlush = getColorbuttonsColor(teddies.colors);
 
     elementSquareColors.innerHTML = buttonsColorPlush;
@@ -54,7 +49,7 @@ fetch(`http://localhost:3000/api/teddies/${teddyId}`)
       const colorCode = color[1];
 
       let buttonsColor = document.querySelector(`.${colorName}`);
-      console.log(buttonsColor);
+
       // setting up the buttons in an html element present on the html page
       // in the localStorage i retrieve the old value
       let valuelocalColor = localStorage.getItem("color");

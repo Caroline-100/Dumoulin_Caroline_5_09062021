@@ -13,6 +13,14 @@ function validateNotNumber(word, error, input) {
     }
   }
 }
+function spaceMail(word, error, input) {
+  for (let letter of word) {
+    if (letter === " ") {
+      error.innerText =
+        "there is a problem, this field must not contain spaces";
+    }
+  }
+}
 // create an object objectTable
 let objectTable = {
   stringColor: [],
@@ -60,8 +68,7 @@ fetch(`http://localhost:3000/api/teddies/`)
             objectTable.counter += 1;
             //  count number of articles, i add in objectTable
             objectTable.resultCounter.push(`${objectTable.counter}`);
-            // console.log(objectTable.resultCounter);
-            console.log(objectTable.counter);
+
             // sum all articles, i add in objectTable
             objectTable.sum += ted.price / 100;
             article.push({
@@ -78,6 +85,7 @@ fetch(`http://localhost:3000/api/teddies/`)
       let teddiesLinesTable = "";
 
       const articleDetail = article.map((art) => {
+        console.log(art.plushNumber);
         teddiesLinesTable += `<tr class="colArticle">
         <td class="resizeTd deleteProduct" style="color:white" data-id="${
           art.plushNumber
@@ -100,28 +108,50 @@ fetch(`http://localhost:3000/api/teddies/`)
     }
 
     const tableArticle = document.querySelector("tbody");
-    console.log(tableArticle.childNodes);
-    console.log(tableArticle.children);
+
     let tdTotal = document.querySelector("#total");
     tdTotal.innerHTML = objectTable.sum + " €";
+    let elemenet = document.querySelectorAll(".colArticle");
 
-    tableArticle.addEventListener("click", () => {
-      let arraytoDelete = JSON.parse(localStorage.getItem("color"));
-      console.log("array to delete", arraytoDelete);
-      let newarray = arraytoDelete.splice(1);
-      console.log("new array", newarray);
-      localStorage.setItem("color", JSON.stringify(newarray));
-      if (objectTable.sum === 0) {
-        localStorage.setItem("color", "[]");
-        localStorage.removeItem("number");
-        localStorage.removeItem("lastName");
-        localStorage.removeItem("firstName");
-        localStorage.removeItem("address");
-        localStorage.removeItem("email");
-        localStorage.removeItem("city");
-      }
-      location.reload();
-    });
+    for (let index of elemenet) {
+      console.log(index.children[0].getAttribute("data-id"));
+      // console.log(elemenet[index].children[0].getAttribute("data-id"));
+      index.addEventListener("click", (event) => {
+        let data = event.target.getAttribute("data-id");
+        console.log(data);
+        let arraytoDelete = JSON.parse(localStorage.getItem("color"));
+        let newarray = arraytoDelete.splice(data, 1);
+        console.log(newarray);
+        localStorage.setItem("color", JSON.stringify(newarray));
+
+        location.reload();
+      });
+    }
+    if (objectTable.sum === 0) {
+      localStorage.setItem("color", "[]");
+      localStorage.removeItem("number");
+      localStorage.removeItem("lastName");
+      localStorage.removeItem("firstName");
+      localStorage.removeItem("address");
+      localStorage.removeItem("email");
+      localStorage.removeItem("city");
+    }
+    // tableArticle.addEventListener("click", (event) => {
+    //   //   let arraytoDelete = JSON.parse(localStorage.getItem("color"));
+    //   //   // console.log(elemenet.getAttribute("data-id"));
+    //   //   // let newarray = arraytoDelete.splice(1);
+
+    //   if (objectTable.sum === 0) {
+    //     localStorage.setItem("color", "[]");
+    //     localStorage.removeItem("number");
+    //     localStorage.removeItem("lastName");
+    //     localStorage.removeItem("firstName");
+    //     localStorage.removeItem("address");
+    //     localStorage.removeItem("email");
+    //     localStorage.removeItem("city");
+    //   }
+    //   //   // location.reload();
+    // });
 
     localStorage.setItem("total", objectTable.sum);
     if (objectTable.sum === 0) {
@@ -166,36 +196,38 @@ fetch(`http://localhost:3000/api/teddies/`)
     });
     inputEmail.addEventListener("input", (event) => {
       let valueInput = `${event.target.value}`;
+      console.log(valueInput);
+      spaceMail(event.target.value, pErrorMail, inputEmail);
       localStorage.setItem("email", valueInput);
     });
 
-    // let currentData = {
-    //   contact: {
-    //     firstName: localStorage.getItem("firstName"),
-    //     lastName: localStorage.getItem("lastName"),
-    //     address: localStorage.getItem("address"),
-    //     city: localStorage.getItem("city"),
-    //     email: localStorage.getItem("email"),
-    //   },
-    //   products: objectTable.stringId,
-    // };
-    // document.querySelector("#order").addEventListener("click", () => {
-    //   localStorage.removeItem("color");
-    //   localStorage.removeItem("number");
-    //   localStorage.removeItem("orderId");
-    //   localStorage.removeItem("products");
-    // });
-    // localStorage.setItem("contact", JSON.stringify(currentData));
-    //   fetch("http://localhost:3000/api/teddies/order", {
-    //     method: "POST",
-    //     body: JSON.stringify(currentData),
-    //     headers: { "Content-Type": "application/json;charset=utf-8" },
-    //   })
-    //     .then((response) => response.json())
-    //     .then((json) => {
-    //       localStorage.setItem("orderId", json.orderId);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
+    let currentData = {
+      contact: {
+        firstName: localStorage.getItem("firstName"),
+        lastName: localStorage.getItem("lastName"),
+        address: localStorage.getItem("address"),
+        city: localStorage.getItem("city"),
+        email: localStorage.getItem("email"),
+      },
+      products: objectTable.stringId,
+    };
+    document.querySelector("#order").addEventListener("click", () => {
+      localStorage.removeItem("color");
+      localStorage.removeItem("number");
+      localStorage.removeItem("orderId");
+      localStorage.removeItem("products");
+    });
+    localStorage.setItem("contact", JSON.stringify(currentData));
+    fetch("http://localhost:3000/api/teddies/order", {
+      method: "POST",
+      body: JSON.stringify(currentData),
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        localStorage.setItem("orderId", json.orderId);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   });
-// });
