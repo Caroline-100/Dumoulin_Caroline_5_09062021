@@ -59,7 +59,7 @@ fetch(`http://localhost:3000/api/teddies/`)
       let teddiesLinesTable = "";
       // template articles in table
       article.map((art) => {
-        teddiesLinesTable += `<tr class="colArticle">
+        teddiesLinesTable += `<tr class="colonneArticle">
         <td class="resizeTd deleteProduct" style="color:white">
         <span><i class="fas fa-trash-alt" data-id="${art.plushNumber}"></i></td>
         <td class="resizeTd" style="color:white"></span>
@@ -84,9 +84,9 @@ fetch(`http://localhost:3000/api/teddies/`)
     const tableArticle = document.querySelector("tbody");
     let tdTotal = document.querySelector("#total");
     tdTotal.innerHTML = sum + " €";
-    let elemenet = document.querySelectorAll(".colArticle");
+    let colonneArticle = document.querySelectorAll(".colonneArticle");
 
-    for (let index of elemenet) {
+    for (let index of colonneArticle) {
       index.addEventListener("click", (event) => {
         let arraytoDelete = JSON.parse(localStorage.getItem("color"));
         let data = event.target.getAttribute("data-id");
