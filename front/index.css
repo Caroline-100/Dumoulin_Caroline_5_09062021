@@ -1,0 +1,62 @@
+body {
+    background-color: black;
+    color: wheat;
+}
+
+/* start of produit */
+
+article {
+    display: flex;
+    flex-direction: row;
+    /* border: wheat 1px solid; */
+    justify-content: center;
+}
+
+.text {
+    display: flex;
+    padding: 2em;
+    flex-direction: column;
+}
+
+img {
+    /* border: violet 3px solid; */
+    max-width: 480px;
+    max-height: 500px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    justify-content: space-evenly;
+}
+
+button {
+    border: solid 1px grey;
+    padding: .5em;
+}
+
+/* end of product */
+
+/* responsive product */
+
+@media screen and ( max-width: 425px) {
+    body {
+        background-color: black;
+    }
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+    article {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 1em;
+    }
+    img {
+        max-width: 200px;
+        height: 200px;
+        padding: 1em;
+    }
+}

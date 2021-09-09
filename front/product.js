@@ -1,5 +1,5 @@
 // "use strict";
-// function for create buttons colors
+// function for create colors buttons
 function getColorbuttonsColor(colors) {
   let htmlButton = "";
   for (let color of colors) {
