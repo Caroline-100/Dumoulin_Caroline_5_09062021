@@ -12,8 +12,8 @@ J'ai modifié l'array de 'colors' dans le dossier backend :
 example :
 colors : [[colorName, colorCodeHexadecimal], [colorName, colorCodeHexadecimal]...];
 
-# J'ai tenté de mettre le dossier dans mon github 'JWDP5/models/Teddy.js'. Je n'ai pu aboutir à cette requête.
+1.  J'ai tenté de mettre le dossier dans mon github 'JWDP5/models/Teddy.js'. Je n'ai pu aboutir à cette requête.
 
-# J'ai supprimé le fichier .git dans le dossier JWDP5 (apres ces changements, je pensais que git allais voir le dossier JWDP5 modifié dans mon dossier d'origine P5_dumoulin_caroline_09062021 ').
+2.  J'ai supprimé le fichier .git dans le dossier JWDP5 (après ces changements, je pensais que git allait voir le dossier JWDP5 modifié dans mon dossier d'origine 'P5_dumoulin_caroline_09062021').
 
-# J'ai donc modifié le nom du dossier 'JWDP5 ' par 'backend'. Git a vu les changements. J'ai push les changements dans mon github.
+3.  J'ai donc renommer le nom du dossier 'JWDP5 ' par 'backend'. Git a vu les changements. J'ai push les changements dans mon github. Vous trouverez dans mon repo un dossier backend.
