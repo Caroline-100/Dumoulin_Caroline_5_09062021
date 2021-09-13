@@ -1,4 +1,4 @@
-// launch the server => JWDP5 % node server.js
+// launch the server => backend % node server.js
 // fetch all teddies
 fetch("http://localhost:3000/api/teddies")
   .then((response) => {
@@ -22,7 +22,8 @@ fetch("http://localhost:3000/api/teddies")
     for (let teddie of teddies) {
       // *****Party Two***** //********/ I modifie the URL product, i add the Id in the URL, id choose by the user*****
       // i create a new instance url (object) from the product page url
-      let urlInstance = new URL("http://127.0.0.1:5501/front/product.html");
+
+      let urlInstance = new URL("http://127.0.0.1:5502/front/product.html");
       // In url, i add selected id by the user.
       urlInstance.searchParams.set("id", teddie._id);
       //*****End of Party Two ******//
@@ -33,6 +34,7 @@ fetch("http://localhost:3000/api/teddies")
       // i loop over the teddies javascript object
       for (let ted of teddie.colors) {
         tedColor.push(ted[0]);
+        console.log(tedColor);
       }
       //  i create a card for each teddie of api
       teddiesCardsHtml += `
@@ -55,7 +57,7 @@ fetch("http://localhost:3000/api/teddies")
         </div>
       </div>
     </div>
-  </a> 
+  </a>
       `;
     }
     // i show the articles of plush on the homepage
@@ -69,5 +71,5 @@ fetch("http://localhost:3000/api/teddies")
   })
   // catch error
   .catch((error) => {
-    console.error(error);
+    console.error(error, response.status);
   });
